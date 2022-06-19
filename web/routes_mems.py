@@ -137,7 +137,13 @@ def likes_or_skip():
 
 @mem_routes.route("/test_for_third")
 def test_for_third():
-    for mem in Mems.query.all():
+
+    mems = Mems.query.all()
+
+    if not mems:
+        return jsonify({"message": "Мемов для накрутки нет:("})
+
+    for mem in mems:
         tt = random.randint(1, 3)
         if tt != 1:
             mem.likes_count = random.randint(25, 1000)
